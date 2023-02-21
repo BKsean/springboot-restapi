@@ -14,9 +14,9 @@ public class UserDaoService {
 
     private static  int userCount = 3;
     static{
-        userList.add(new User(1,"seungkwan",new Date()));
-        userList.add(new User(2,"hm",new Date()));
-        userList.add(new User(3,"bk",new Date()));
+        userList.add(new User(1,"seungkwan",new Date(),"test1","880219-1111111"));
+        userList.add(new User(2,"hm",new Date(),"test2","880219-2222222"));
+        userList.add(new User(3,"bk",new Date(),"test3","880219-32333333"));
     }
 
     public List<User> findAll(){
@@ -57,10 +57,10 @@ public class UserDaoService {
 
     public User updateUser(User user){
 
-        for(int i=0; i < userList.size(); i++){
-            if(userList.get(i).getId() == user.getId()){
-                userList.get(i).setName(user.getName());
-                userList.get(i).setJoinDate(user.getJoinDate());
+        for(User userItem : userList){
+            if(userItem.getId() == user.getId()){
+                userItem.setName(user.getName());
+                userItem.setJoinDate(user.getJoinDate());
                 return user;
             }
         }

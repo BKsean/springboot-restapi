@@ -54,6 +54,57 @@ Message 개체를 주입한다.
 
 사실 어떻게 message_설정언어.properties를 가져오는지 이해가 되지 않음
 
+/**************************xml 형태로 반환하기**************************/
+xml 형태로 반환하기 위해선 먼저 클라이언트가 header에서 Accept 값을 application/xml형식으로 요청한다.
+서버측에선 xml형태로 데이터를 반환하기위해 maven에서 다음 의존성을 추가한다.
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <version>2.10.2</version>
+        </dependency>
+
+/**************************Response 데이터 제어**************************/
+@JsonIgnore
+@JsonIgnoreProperties(value = {"password","ssn"})
+
+User도메인에 @JsonFilter("UserInfo")//이름은 임의지정
+
+SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("id","name","joinDate","ssn");
+FilterProvider filters = new SimpleFilterProvider().addFilter("UserInfo",filter);
+MappingJacksonValue mapping = new MappingJacksonValue(user);
+mapping.setFilters(filters);
+
+/*****************************URI를 통한 rest api version관리**************************/
+자마깐 상속받을때 부모클래스의 기본 생성자가 없으면 오류가 발생?
+
+그냥 URI에다 v1 또는 v2로 다른 버전 URI를 등록후 다른 버전의 객체를 던저준다.
+
+/********************Request Parameter와 Header를 이용한 API 버전관리
+Request Parameter
+@GetMapping(value = "/users/{id}",params = "version=1")
+@GetMapping(value = "/users/{id}",params = "version=2")
+이런 식으로 파라미터로 받는 버전을 명시하고 각기 다른 버전의 객체를 반환한다.
+
+Header값 이용
+@GetMapping(value = "/users/{id}",headers = "X-API-VERSION=1")
+@GetMapping(value = "/users/{id}",headers = "X-API-VERSION=2")
+와 같이 헤더값을 통해 다른 버전을 관리할 수도 있다.
+
+Header값의 MIME TYPE 이용
+@GetMapping(value = "/v1/users/{id}",produces = "application/vnd.company.appv2+json")
+
+요청시 header에 accept에 application/vnd.company.appv2+json 값으로 요청
+
+버전관리에 주의해야 할점
+URI가 너무 복잡해지지 않게 한다.
+헤더값이 잘못들어가게 하지 않는다.
+브라우저 캐쉬때문에 지정한 값이 제대로 반영되지 않을 수 있다. 캐쉬삭제 후 제대로 된 값 확인 필요
+브라우저에서 실행될수 있는 버전도 존재해야 한다. URI실행 또는 request param
+API DOCUMENT가 제공되어야 한다.
+
+
+
+
 학습이 필요한 객체들
 1. ResponseEntity
 httpentity를 상속받는, 결과 데이터와 HTTP 상태 코드를 직접 제어할 수 있는 클래스이다.

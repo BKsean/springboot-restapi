@@ -1,8 +1,6 @@
 package com.example.springbootrestapi.user;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -15,15 +13,9 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 /*@JsonIgnoreProperties(value = {"password","ssn"})*/
-@JsonFilter("UserInfo")//이름은 임의지정
-public class User {
+@JsonFilter("UserInfoV2")//이름은 임의지정
+public class UserV2 extends User{
 
-    private Integer id;
-    @Size(min=2, message = "Name은 2글자이상 입력해 주세요")
-    private String name;
-    @Past
-    private Date joinDate;
+    private String grade;
 
-    private String password;
-    private String ssn;
 }
