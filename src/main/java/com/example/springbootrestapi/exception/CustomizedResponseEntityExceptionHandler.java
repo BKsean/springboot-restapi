@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.Date;
 
 @RestController
-@ControllerAdvice //모든 컨트롤러가 실행될때 이 어노테이션을 가지고 있는 빈이 실행된다. 이경우에는 에러의 경우 이 컨트롤러가 실행될듯?
+//@ControllerAdvice //모든 컨트롤러가 실행될때 이 어노테이션을 가지고 있는 빈이 실행된다. 이경우에는 에러의 경우 이 컨트롤러가 실행될듯?
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)

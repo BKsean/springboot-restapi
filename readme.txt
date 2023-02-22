@@ -102,8 +102,24 @@ URI가 너무 복잡해지지 않게 한다.
 브라우저에서 실행될수 있는 버전도 존재해야 한다. URI실행 또는 request param
 API DOCUMENT가 제공되어야 한다.
 
+/**************HATEOAS적용***********************/
+HATEOAS는 무엇인가?
+잘 설계된 REST API를 구현하기 위한 단계가 존재하는데 , 그 마지막 단계가
 
+Hypermedia Controls (하이퍼미디어 컨트롤) - HATEOAS라는 개념을 통해, 자원에 호출 가능한 API 정보를 자원의 상태를 반영하여 표현하는것이다.
 
+2.1.8
+Resource
+ControllerLinkBuilder
+
+2.2
+Resource -> EntityModel
+ControllerLinkBuilder -> WebMvcLinkBuilder
+
+EntityModel<Usr> model = new EntityModel<>(user);
+WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retieveAllUsers());
+model.add(linkTo.withRel("all-Users");
+return model;
 
 학습이 필요한 객체들
 1. ResponseEntity
