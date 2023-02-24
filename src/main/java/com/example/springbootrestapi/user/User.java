@@ -15,7 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 /*@JsonIgnoreProperties(value = {"password","ssn"})*/
-@JsonFilter("UserInfo")//이름은 임의지정
+//@JsonFilter("UserInfo")//이름은 임의지정
 public class User {
 
     private Integer id;

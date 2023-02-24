@@ -1,7 +1,6 @@
 package com.example.springbootrestapi.user;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
@@ -42,7 +41,9 @@ public class UserController {
         /*WebMvcLinkBuilder linkTo = WebMvcLinkBuilder.
                 linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).retrieveAllUsers());*/
         WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllUsers());
+        WebMvcLinkBuilder linkTo2 = linkTo(methodOn(this.getClass()).retrieveUser(id));
         model.add(linkTo.withRel("all-Users"));
+        model.add(linkTo2.withRel("search fisrt user"));
         return model;
     }
 
